@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxnrdqwu5oiil"]
+
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_lsm7v"]
+[ext_resource type="FontFile" uid="uid://k8jfdfv2ku5p" path="res://Assets/PixelOperator8.ttf" id="2_hrnh0"]
+
+[node name="Hud" type="CanvasLayer"]
+scale = Vector2(3, 2)
+transform = Transform2D(3, 0, 0, 2, 0, 0)
+script = ExtResource("1_lsm7v")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.01
+autostart = true
+
+[node name="Score" type="Label" parent="."]
+offset_left = 38.6667
+offset_top = 0.5
+offset_right = 78.6667
+offset_bottom = 23.5
+scale = Vector2(0.64, 0.64)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_hrnh0")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

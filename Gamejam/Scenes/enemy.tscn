@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://cms8wq10bi1ps"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_q3xxe"]
+[ext_resource type="Texture2D" uid="uid://cemelxo8fx3b1" path="res://Assets/piranhav3.png" id="2_3kg04"]
+[ext_resource type="FontFile" uid="uid://k8jfdfv2ku5p" path="res://Assets/PixelOperator8.ttf" id="3_nltp1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyl5f"]
+atlas = ExtResource("2_3kg04")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm84n"]
+atlas = ExtResource("2_3kg04")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oo1bl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyl5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm84n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnknj"]
+size = Vector2(26, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh1lr"]
+size = Vector2(30.2955, 14.7832)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_q3xxe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_oo1bl")
+autoplay = "default"
+frame_progress = 0.87176
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cnknj")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-5.96046e-08, 0)
+scale = Vector2(0.924229, 1.89404)
+shape = SubResource("RectangleShape2D_oh1lr")
+debug_color = Color(0.982156, 0, 0.056789, 0.42)
+
+[node name="Warning" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -31.0
+offset_right = 74.0
+offset_bottom = 33.0
+scale = Vector2(0.287463, 0.287463)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_nltp1")
+theme_override_font_sizes/font_size = 64
+text = "!"
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
